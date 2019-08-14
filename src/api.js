@@ -17,6 +17,21 @@ export const getPrivateMessage = function(idToken) {
   });
 };
 
+export const postArticle = (idToken, title, body) => {
+  return fetch(`${API_ENDPOINT}/articles`, {
+    method: "POST",
+    headers: new Headers({
+      Authorization: `Bearer ${idToken}`
+    }),
+    body: JSON.stringify({ article: { title: title, body: body } }),
+    credentials: "same-origin"
+  }).then(res => {
+    if (!res.ok) {
+      throw Error(`Request rejected with status ${res.status}`);
+    }
+  });
+};
+
 export const getPublicMessage = function() {
   return fetch(`${API_ENDPOINT}/public`);
 };
