@@ -23,7 +23,6 @@ const App = () => {
       return getPrivateMessage(token)
     })
     .then((resp) => {
-      console.log(resp)
       setMessage(resp.message)
     })
     .catch((e) => {
