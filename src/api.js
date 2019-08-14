@@ -9,13 +9,37 @@ export const getPrivateMessage = function(idToken) {
     credentials: "same-origin"
   }).then(res => {
     if (res.ok) {
-      console.log(res)
       return res.json();
     } else {
       throw Error(`Request rejected with status ${res.status}`);
     }
   });
 };
+
+export const getArticles = () => {
+  return fetch(`${API_ENDPOINT}/articles`, {
+    method: "GET",
+  }).then(res => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      throw Error(`Request rejected with status ${res.status}`);
+    }
+  });
+}
+
+export const getArticle = (id) => {
+  return fetch(`${API_ENDPOINT}/articles/${id}`, {
+    method: "GET",
+  }).then(res => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      throw Error(`Request rejected with status ${res.status}`);
+    }
+  });
+}
+
 
 export const postArticle = (idToken, title, body) => {
   return fetch(`${API_ENDPOINT}/articles`, {

@@ -1,6 +1,8 @@
 import React from "react";
 import firebase from "./firebase";
 import { AddArticle } from "./pages/add_article";
+import IndexArticle from "./pages/index_article";
+import ShowArticle from "./pages/show_article";
 import { getPrivateMessage } from "./api";
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
@@ -58,7 +60,7 @@ const MainConponent = props => {
               <Link to="/add_article">Add article</Link>
             </li>
             <li>
-              <Link to="/show_article">Show article</Link>
+              <Link to="/index_articles">Show articles list</Link>
             </li>
             <li>
               <Link to="/update_article/">Update article</Link>
@@ -70,6 +72,9 @@ const MainConponent = props => {
           path="/add_article"
           render={() => <AddArticle user={props.user} />}
         />
+
+        <Route path="/index_articles" component={IndexArticle} />
+        <Route path="/article/:id" component={ShowArticle} />
       </div>
     </Router>
   );
