@@ -3,6 +3,7 @@ import firebase from "./firebase";
 import { AddArticle } from "./pages/add_article";
 import IndexArticle from "./pages/index_article";
 import ShowArticle from "./pages/show_article";
+import UpdateArticle from "./pages/update_article";
 import { getPrivateMessage } from "./api";
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
