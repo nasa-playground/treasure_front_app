@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import firebase from "./firebase";
+import { getPrivateMessage } from "./api";
+import { useState, useEffect } from "react";
 
-function App() {
+const App = () => {
+  const [user, setUser] = useState(null)
+  const [message, setMessage] = useState("")
+  const [errorMessage, setErrorMessage] = useState("")
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(u => {
+      if (u) {
+        setUser(u)
+      } else {
+        setUser(null)
+      }
+    });
+  });
+
+  const getPrivateMess = () => {
+    user.getIdToken().then((token) => {
+      return getPrivateMessage(token)
+    })
+    .then((resp) => {
+      console.log(resp)
+      setMessage(resp.message)
+    })
+    .catch((e) => {
+      setErrorMessage(e.toString())
+    })
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {user === null ? (
+        <button onClick={firebase.login}>Please login</button>
+      ) : null}
+      <div>{message}</div>
+      <p>{errorMessage}</p>
+      <button onClick={() => getPrivateMess()}>Get Private Message</button>
+      <button onClick={firebase.logout}>Logout</button>
     </div>
   );
-}
+};
 
 export default App;
