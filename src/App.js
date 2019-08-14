@@ -73,8 +73,9 @@ const MainConponent = props => {
           render={() => <AddArticle user={props.user} />}
         />
 
-        <Route path="/index_articles" component={IndexArticle} />
+        <Route path="/index_articles" render={ () => <IndexArticle user={props.user} />} />
         <Route path="/article/:id" component={ShowArticle} />
+        <Route path="/update_article/:id" render={(p) => <UpdateArticle user={props.user}  p={p} /> } />
       </div>
     </Router>
   );
