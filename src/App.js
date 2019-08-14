@@ -43,7 +43,35 @@ const App = () => {
       <p>{errorMessage}</p>
       <button onClick={() => getPrivateMess()}>Get Private Message</button>
       <button onClick={firebase.logout}>Logout</button>
+      <MainConponent user={user} />
     </div>
+  );
+};
+
+const MainConponent = props => {
+  return (
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/add_article">Add article</Link>
+            </li>
+            <li>
+              <Link to="/show_article">Show article</Link>
+            </li>
+            <li>
+              <Link to="/update_article/">Update article</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <Route
+          path="/add_article"
+          render={() => <AddArticle user={props.user} />}
+        />
+      </div>
+    </Router>
   );
 };
 
