@@ -1,33 +1,37 @@
 import React from "react";
 import firebase from "./firebase";
+import { AddArticle } from "./pages/add_article";
 import { getPrivateMessage } from "./api";
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const App = () => {
-  const [user, setUser] = useState(null)
-  const [message, setMessage] = useState("")
-  const [errorMessage, setErrorMessage] = useState("")
+  const [user, setUser] = useState(null);
+  const [message, setMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(u => {
       if (u) {
-        setUser(u)
+        setUser(u);
       } else {
-        setUser(null)
+        setUser(null);
       }
     });
   });
 
   const getPrivateMess = () => {
-    user.getIdToken().then((token) => {
-      return getPrivateMessage(token)
-    })
-    .then((resp) => {
-      setMessage(resp.message)
-    })
-    .catch((e) => {
-      setErrorMessage(e.toString())
-    })
+    user
+      .getIdToken()
+      .then(token => {
+        return getPrivateMessage(token);
+      })
+      .then(resp => {
+        setMessage(resp.message);
+      })
+      .catch(e => {
+        setErrorMessage(e.toString());
+      });
   };
 
   return (
